@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>INSERT TITLE HERE</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20170320" />
+<meta name="author" content="Travis Menghini" />
+<meta name="company" content="Rockwood" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+
+<script>
+var param1var = getQueryVariable("slideshow");
+
+function getQueryVariable(variable) {
+var query = window.location.search.substring(1);
+var vars = query.split("&");
+for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable) {
+
+        var link = document.createElement( "link" );
+        link.href = "https://menghini.github.io/slideShow1.0/ui/default/slides.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "projection";
+        link.id="slideProj";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+        link = document.createElement( "link2" );
+        link.href = "https://menghini.github.io/slideShow1.0/ui/default/outline.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "screen";
+        link.id="outlineStyle";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+         link = document.createElement( "link3" );
+        link.href = "https://menghini.github.io/slideShow1.0/ui/default/print.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "print";
+        link.id="slidePrint";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+         link = document.createElement( "link4" );
+        link.href = "https://menghini.github.io/slideShow1.0/ui/default/opera.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "projection";
+        link.id="operaFix";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+        var imported = document.createElement('script');
+        imported.src = 'https://menghini.github.io/slideShow1.0/ui/default/slides.js';
+        document.head.appendChild(imported);
+    }
+} 
+}
+
+</script>
+<style type="text/css" scoped="">
+		pre.c-source {
+		    display: inline-block;
+		    padding: 0.25ex !important;
+		    border: 3px ridge silver !important;
+		    background: #f9fff9 !important;
+		    margin-right: 0.5ex !important;
+		}
+		pre.c-result {
+		    display: inline-block;
+		    padding: 0.25ex !important;
+		    border: 3px ridge silver !important;
+		    background: #f9f0f0 !important;
+		    margin-right: 0.5ex !important;
+		}
+		pre:hover {
+		    border-color: magenta !important;
+		}
+	    </style>
+</head>
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<!-- header info goes here in h1 and h2 tags-->
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<div class="handout">
+<a href="?slideshow">Display as a slideshow</a>
+</div>
+
+<!-- Edit from here on out -->
+<h1>TITLE GOES HERE</h1>
+<h2>Subtitle</h2>
+</div>
+
+
+<div class="slide">
+    <h1>Slide 1</h1>
+    <ul>
+    <li>Text for slide one</li>
+    <li>Here is some code</li>
+    </ul>
+    <pre class="c-source">
+    struct student
+    {
+        string name;
+        double gpa;
+        student *next;  //must be the same type as the struct
+    };
+    </pre>
+</div>
+<div class="slide">
+    <h1>Slide 2</h1>
+    <ul>
+    <li>More text</li>
+    </ul>
+</div>
+
+</div> <!-- Don't remove this div or after -->
+
+</body>
+</html>
