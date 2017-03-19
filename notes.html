@@ -1,0 +1,212 @@
+<html>
+<head>
+<title>WG C++ Chapter 17 Notes</title>
+<!-- metadata -->
+<meta name="generator" content="S5" />
+<meta name="version" content="S5 1.1" />
+<meta name="presdate" content="20050728" />
+<meta name="author" content="Eric A. Meyer" />
+<meta name="company" content="Complex Spiral Consulting" />
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+
+<script>
+var param1var = getQueryVariable("slideshow");
+
+function getQueryVariable(variable) {
+var query = window.location.search.substring(1);
+var vars = query.split("&");
+for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable) {
+
+        var link = document.createElement( "link" );
+        link.href = "ui/default/slides.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "projection";
+        link.id="slideProj";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+        link = document.createElement( "link2" );
+        link.href = "ui/default/outline.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "screen";
+        link.id="outlineStyle";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+         link = document.createElement( "link3" );
+        link.href = "ui/default/print.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "print";
+        link.id="slidePrint";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+         link = document.createElement( "link4" );
+        link.href = "ui/default/opera.css";
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.media = "projection";
+        link.id="operaFix";
+        document.getElementsByTagName( "head" )[0].appendChild( link );
+
+        var imported = document.createElement('script');
+        imported.src = 'ui/default/slides.js';
+        document.head.appendChild(imported);
+    }
+} 
+//alert('Query Variable ' + variable + ' not found');
+}
+
+</script>
+<style type="text/css" scoped="">
+		pre.c-source {
+		    display: inline-block;
+		    padding: 0.25ex !important;
+		    border: 3px ridge silver !important;
+		    background: #f9fff9 !important;
+		    margin-right: 0.5ex !important;
+		}
+		pre.c-result {
+		    display: inline-block;
+		    padding: 0.25ex !important;
+		    border: 3px ridge silver !important;
+		    background: #f9f0f0 !important;
+		    margin-right: 0.5ex !important;
+		}
+		pre:hover {
+		    border-color: magenta !important;
+		}
+	    </style>
+<!--<script src="ui/default/slides.js" type="text/javascript"></script>-->
+</head>
+<div class="layout">
+<div id="controls"><!-- DO NOT EDIT --></div>
+<div id="currentSlide"><!-- DO NOT EDIT --></div>
+<div id="header"></div>
+<div id="footer">
+<!-- header info goes here in h1 and h2 tags-->
+</div>
+
+</div>
+
+
+<div class="presentation">
+
+<div class="slide">
+<div class="handout">
+<a href="notes.html?slideshow">Display as a slideshow</a>
+</div>
+<h1>WG C++ Chapter 17 Notes</h1>
+<h2>Linked List</h2>
+</div>
+
+
+<div class="slide">
+    <h1>Objective #1: Understand linked lists</h1>
+    <ul>
+    <li>A linked list is a collection of components (usually structs or classes), called nodes.  Every node (except the last one) contains the address of the next node. </li>
+    <li>Each node has two components.  One part contains the relevant information about the data structure, and the other part is a pointer that points to the next node.</li>
+    </ul>
+    <pre class="c-source">
+    struct student
+    {
+        string name;
+        double gpa;
+        student *next;  //must be the same type as the struct
+    };
+    </pre>
+</div>
+<div class="slide">
+    <ul>
+    <li>You usually need two global variables in every linked list program, a pointer that heads the list, and a pointer to keep track of whatever node you are currently dealing with.  Initially, you want to set each of these equal to NULL because when the program first runs, the list is empty.</li>
+    <li>Example</li>
+    <pre class="c-source">
+    student *headptr=NULL;
+    student *currentptr=NULL;
+    </pre>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #2: Add nodes to the end of a linked list</h1>
+    <ul>
+    <li>To add a node to the end of a linked list, you must first create the new node. Furthermore, when you create the new node you must use a temporary pointer to keep track of it. Remember we are not naming specific variables so using a pointer to mark its address is important.</li>
+    <li>Next, you must attach the new node to the end of the linked list by having a pointer from the last node in the list point to the new node.</li>
+    <li>The new node's "next" pointer should point to NULL, allowing the program to know where the end of the list is! </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #3: Move through the nodes of a linked list</h1>
+    <ul>
+    <li>When you visit EVERY node in a linked list you are traversing the list. Sometimes you may only need to find a certain node and don't care to visit EVERY node. </li>
+    <li>To move through a linked list, you would follow the "next" pointer of each node to the node it points to. This process would occur in a do loop until you either found what you are looking for or until you have reached the end of the list. Note that if you have reached the end of the list, you have traversed the list. </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #4: Dispose of a linked list</h1>
+    <ul>
+    <li>To dispose of a linked list you must traverse the list (that is, visit every node of the list) and use the delete operator to free the memory being used to store each node. </li>
+    <li>In order to dispose of the list, you must use a temporary pointer variable to keep track of where the next node is located as you delete the previous node. Since we are not naming each struct variable or node item with an identifier, the only way that we can reference a node is with a pointer. If a node is deleted with that reference pointer, we will have lost it's "next" pointer and no longer know where the next node is located. That is why a temporary pointer variable needs to be used. </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #5: Insert nodes from a linked list</h1>
+    <ul>
+    <li>There are three general places that a node can be inserted into a linked list. You can insert a new node at the head (beginning) of the list. You can insert a node in the middle of the list. Or, you can insert a new node at the end of the list.</li>
+    <li>To insert a node at the head of the list, you must point its "next" pointer to the original node that was located at the head of the list. You must then reassign the linked list's head pointer to point to this new node. </li>
+    </ul>
+</div>
+<div class="slide">
+    <ul>
+    <li>To insert a node in the middle of the list, you must find the location where you wish to insert the new node. Then, you set the "next" pointer of the node that needs to come directly before the new node to point to the new node. You must also set the new node's "next" pointer to point to the node which will directly follow the new node in the linked list. </li>
+    <li>To insert a node at the end of the list, you simply point the "next" pointer of the previous last node to this new node. The "next" pointer of the new node must point to NULL. </li>
+    </ul>
+</div>
+<div class="slide">
+    <h1>Objective #6: Delete nodes from a linked list</h1>
+    <ul>
+    <li>To delete a node from a linked list, you must first find the node that you wish to delete. </li>
+    <li>Then, you must set the "next" pointer of the node that comes before the node you wish to delete to point to the node that follows the soon-to-be-deleted node. </li>
+    <li>To actually delete the node, you use the delete operator to free the memory being used by the node. </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #7: Save a linked list to disk</h1>
+    <ul>
+    <li>Since a linked list is a dynamic data structure that is stored in the memory (RAM) of the computer, you will need to save the data (nodes and arrangement) to a file if you wish to use it after your program's execution.</li>
+    <li>You do not need to save any pointers to the file though. You only need to save the actual information in each node. The "next" pointers will be recreated when you run the program again if wish to store the data into another linked list at that time.</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #8: Understand doubly-linked lists</h1>
+    <ul>
+    <li>In a doubly-linked list you assign two pointers to each node. In addition to a "next" pointer, you will use a "previous" pointer to point to the node which comes before the current node in the list. </li>
+    <li>Double-linking a list allows you to traverse the list in both directions. Otherwise, you can only traverse the list from its head to its end. </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Objective #9: Understand circularly-linked lists </h1>
+    <ul>
+    <li>Circularly-linked lists are similar to singly-linked lists with "next" pointers. However, the last node's "next" pointer points back to the head (first) not NULL. </li>
+    <li>You may or may not have a head pointer associated with a circularly-linked list. </li>
+
+    </ul>
+</div>
+
+
+
+
+</div>
+
+</body>
+</html>
